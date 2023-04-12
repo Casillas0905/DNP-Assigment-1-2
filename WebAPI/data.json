@@ -1,0 +1,144 @@
+{
+  "Users": [
+    {
+      "Id": 1,
+      "UserName": "casillas",
+      "Password": "Iker0905",
+      "Email": "iker@gmail.com",
+      "Name": "Iker",
+      "SecurityLevel": 5
+    },
+    {
+      "Id": 2,
+      "UserName": "diegopina",
+      "Password": "diego0905",
+      "Email": "diego@gmail.com",
+      "Name": "Diego",
+      "SecurityLevel": 0
+    },
+    {
+      "Id": 3,
+      "UserName": "alek",
+      "Password": "alek0905",
+      "Email": "alek@gmail.com",
+      "Name": "alek",
+      "SecurityLevel": 5
+    },
+    {
+      "Id": 4,
+      "UserName": "user",
+      "Password": "password",
+      "Email": "user@gmail",
+      "Name": "User",
+      "SecurityLevel": 5
+    }
+  ],
+  "Posts": [
+    {
+      "Id": 1,
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "Title": "Coffee",
+      "Messages": "New Study Shows Drinking Coffee Can Increase Your Lifespan by 10 Years"
+    },
+    {
+      "Id": 2,
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "Title": "Meditation",
+      "Messages": "Is It Time to Reconsider the Benefits of Meditation? Experts Weigh In"
+    },
+    {
+      "Id": 3,
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "Title": "Nasa",
+      "Messages": "Breaking News: NASA Discovers Evidence of Alien Life on Mars"
+    },
+    {
+      "Id": 4,
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "Title": "10 Read Books",
+      "Messages": "The Top 10 Must-Read Books of the Year, According to Reddit Users"
+    },
+    {
+      "Id": 5,
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "Title": "post",
+      "Messages": "message test post"
+    }
+  ],
+  "AnswerMessages": [
+    {
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "id": 1,
+      "message": "hello world",
+      "postOwnerid": 2
+    },
+    {
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "id": 2,
+      "message": "hello miniworld",
+      "postOwnerid": 2
+    },
+    {
+      "Owner": {
+        "Id": 1,
+        "UserName": "casillas",
+        "Password": "Iker0905",
+        "Email": "iker@gmail.com",
+        "Name": "Iker",
+        "SecurityLevel": 5
+      },
+      "id": 3,
+      "message": "test message create",
+      "postOwnerid": 1
+    }
+  ]
+}

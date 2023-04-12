@@ -1,0 +1,82 @@
+﻿@page "/CreatePost"
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@using Domain.DTOs
+@using System.Drawing
+@using System.Security.Claims
+@inject IPostService PostService;
+@inject IUserService userService
+@attribute [Authorize]
+<div class="card">
+    <h3>Create Post</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <input type="text" @bind="todoTitle"/>
+            <label>Meesage:</label>
+                        <input type="text" @bind="PostMessage"/>
+        </div>
+        <div class="form-group field">
+        </div>
+        <div class="button-row">
+            @if (!string.IsNullOrEmpty(msg))
+            {
+                <label style="color : @color">@msg</label>
+            }
+            <button @onclick="Create1" class="acceptbtn">Create</button>
+        </div>
+</div>
+
+
+@code {
+    private Task<IEnumerable<User>> users;
+    private int? selectedUserId;
+    private string todoTitle = "";
+    private string PostMessage = "";
+    private string msg = "";
+    private string color = "";
+    
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    private string? name;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        
+        if (!isLoggedIn) return;
+        
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;
+        users=userService.GetUsers(name);
+    }
+
+    private async Task Create1()
+    {
+        msg = "";
+        if (string.IsNullOrEmpty(todoTitle))
+        {
+            color = "red";
+            msg = "Title cannot be empty!";
+            return;
+        }
+
+        try
+        {
+            PostCreationDto dto = new(users.Id, todoTitle, PostMessage);
+            await PostService.CreateAsync(dto);
+            color = "green";
+            msg = "Post created";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

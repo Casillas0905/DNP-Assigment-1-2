@@ -1,0 +1,87 @@
+﻿@page "/AddMessage"
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using Domain.Models
+@using Application.LogicInterfaces
+@inject IMessageService messageService;
+@inject HttpClient httpClient;
+@attribute [Authorize]
+<h3>AddMessage</h3>
+
+<div class="card">
+    <h3>Create Post</h3>
+    <div class="form-group field">
+        <label>Ownerid:</label>
+        <input type="text" @bind="ownerId"/>
+        <label>PostId:</label>
+        <input type="text" @bind="postOwnerId"/>
+        <label>Message:</label>
+        <input type="text" @bind="message"/>
+    </div>
+    <div class="button-row">
+        @if (!string.IsNullOrEmpty(msg))
+        {
+            <label style="color : @color">@msg</label>
+        }
+        <button @onclick="AddMessage1" class="acceptbtn">Create</button>
+    </div>
+</div>
+<div class="users-container">
+    @if (messages != null)
+    {
+        <div class="post-card">
+                
+            <h5>Message</h5>
+            <label>@messages.message</label>
+            <br/>
+            <label >@messages.postOwnerid</label>
+            <br/>
+                
+        </div>
+    }
+    
+        
+</div>
+
+@code {
+    private int ownerId;
+    private int postOwnerId ;
+    private string message = "";
+    private int messageid;
+    private string msg = "";
+    private string color = "";
+    private AnswerMessage? messages;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            messages = await messageService.GetById(1);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    public async Task AddMessage1()
+    {
+        msg = "";
+        
+        try
+        {
+            MessageCreationDto dto = new(ownerId,postOwnerId, message);
+            await messageService.CreateAsync(dto);
+            color = "green";
+            msg = "Post created";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+
+    }
+}

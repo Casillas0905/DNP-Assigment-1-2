@@ -1,0 +1,59 @@
+﻿@page "/ViewPosts"
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@using Domain.DTOs
+@inject IPostService postService;
+@inject NavigationManager NavigationManager;
+@attribute [Authorize]
+<h3 style="text-align: center">Overview of all posts</h3>
+@if (posts == null)
+{
+    <span>Loading..</span>
+}
+else if (!posts.Any())
+{
+    <span>No posts to be found</span>
+}
+else
+{
+    <div class="users-container">
+        @foreach (Post post in posts)
+        {
+            <div class="post-card">
+                <h5>@post.Title</h5>
+                <label >@post.Messages</label>
+                <br/>
+                <label >@post.Id</label>
+                <br/>
+                <button postId=@post.Id.ToString() @onclick="() => goToPosts(post.Id)" class="postButton">Go to this post</button>
+            </div>
+        }
+    </div>
+}
+
+
+@code {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+
+    private async Task goToPosts(int id)
+    {
+        postService.id = id;
+        NavigationManager.NavigateTo("/ViewOnePost");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            posts = await postService.GetPosts();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

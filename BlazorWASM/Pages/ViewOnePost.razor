@@ -1,0 +1,53 @@
+﻿@page "/ViewOnePost"
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@inject IPostService postService;
+@inject IUserService userService;
+@attribute [Authorize]
+
+<h3>View Post</h3>
+<div class="card">
+
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+    
+    @if (post != null)
+    {
+        <div class="post-card">
+                <h5>@post.Title</h5>
+            <label>@post.Messages</label>
+                <br/>
+            </div>
+    }
+    
+    
+</div>
+
+@code {
+
+    //[Parameter]
+    public int Id;
+    private PostBasicDto postData;
+    private string msg = "";
+    private IEnumerable<User>? users;
+    private GetPostDto post;
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            int id = postService.id ;
+            postData = await postService.GetPostByIdAsync(id);
+            post = new GetPostDto(postData.Title, postData.Messages);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}
